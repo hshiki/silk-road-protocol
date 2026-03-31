@@ -4,9 +4,7 @@
 
 <img src="assets/srp_gate.png" width="600px" alt="SRP Gate">
 
-Silk Road Protocol (SRP) is a decentralised gate network protocol for [EVE Frontier](https://evefrontier.com).
-
-Built for 2026 EVE Frontier Hackathon, deployed on **Sui** (testnet_utopia).
+Silk Road Protocol (SRP) is a decentralised gate network protocol for [EVE Frontier](https://evefrontier.com). Built for 2026 EVE Frontier Hackathon, deployed on **Sui** (testnet_utopia).
 
 <img src="assets/srp_dashboard.png" width="600px" alt="SRP Gate">
 
@@ -26,8 +24,8 @@ shareholders (dividends) and the uptime reward pool.
 - The extension config is frozen at assimilation so `SilkRoadAuth` can never be revoked, building player trust that the toll gate cannot be quietly disabled.
 
 **What contributors retain:**
-- The `NetworkNode` OwnerCap — they continue to manage fuel through the normal game UI.
-- When a node runs out of fuel the game engine automatically offlines the gate. Once refuelled, anyone (contributor or keeper bot) calls `bring_gate_online`. The uptime reward clock resets to `now` — no credit for the offline gap.
+- The `NetworkNode` OwnerCap: they continue to manage fuel through the normal game UI.
+- When a node runs out of fuel the game engine automatically offlines the gate. Once refuelled, anyone (contributor or keeper bot) calls `bring_gate_online`. The uptime reward clock resets to `now`, no credit for the offline gap.
 
 **`assimilate_gate` call sequence (single PTB):**
 1. `access::transfer_owner_cap(gate_cap, treasury_addr)`
@@ -78,16 +76,16 @@ graph TD
 
 <img src="assets/claim_dividend.png" width="600px" alt="SRP Gate">
 
-The protocol utilizes the F1 / MasterChef algorithm to achieve O(1) scalability for reward distribution.
+The protocol utilizes the F1 / MasterChef algorithm to achieve $O(1)$ scalability for reward distribution.
 
 $$
-global\_reward\_per\_share += \frac{div\_cut × PRECISION}{total\_shares\_issued}
+\mathrm{global\_reward\_per\_share} \mathrel{+}= \frac{\mathrm{div\_cut} \times \mathrm{PRECISION}}{\mathrm{total\_shares\_issued}}
 $$
 $$
-claimable\_dividend = \frac{shares ×(global\_reward\_per\_share - reward\_debt)}{PRECISION}
+\mathrm{claimable\_dividend} = \frac{\mathrm{shares} \times (\mathrm{global\_reward\_per\_share} - \mathrm{reward\_debt})}{\mathrm{PRECISION}}
 $$
 
-- `PRECISION = 1_000_000_000`
+- `PRECISION` = 1_000_000_000
 - `reward_debt` is set at mint time so new contributors don't claim pre-existing dividends.
 - `claimable_dividend` advances `reward_debt` to the current accumulator (prevents double-claim).
 - `SRP_Share` transfer is disabled by default; enabled via `set_shares_transferable` without a contract upgrade (governance hook).
@@ -98,8 +96,8 @@ $$
 
 - Reward accrues at `uptime_reward_per_ms` per millisecond while **both** the gate and its NetworkNode are online.
 - Liveness is verified on-chain via `gate::is_online` and `network_node::is_network_node_online`.
-- The node is cross-checked against `gate::energy_source_id` — the caller cannot pass a fake node object.
-- Reward is capped at `uptime_reward_pool` balance — no revert when the pool is empty.
+- The node is cross-checked against `gate::energy_source_id`: the caller cannot pass a fake node object.
+- Reward is capped at `uptime_reward_pool` balance: no revert when the pool is empty.
 - Anyone may call `claim_uptime_reward`; payout always goes to the registered contributor(enabling keeper automation).
 
 ## Revenue Routing (`split_and_pool`)
@@ -107,10 +105,10 @@ $$
 <img src="assets/treasury.png" width="600px" alt="SRP Gate">
 
 $$
-uptime\_cut = toll × (1 − div\_split\_bps / 10000)  → uptime\_reward\_pool
+\mathrm{uptime\_cut} = \mathrm{toll} \times (1 − \frac{\mathrm{div\_split\_bps}}{10000})  → \mathrm{uptime\_reward\_pool}
 $$
 $$
-div\_cut = toll − uptime\_cut → dividend\_pool
+\mathrm{div\_cut} = \mathrm{toll} − \mathrm{uptime\_cut} → \mathrm{dividend\_pool}
 $$
 
 ```mermaid
@@ -149,17 +147,17 @@ graph TD
 
 ## Post-Hackathon TODOs
 
-1. **`proxy_refuel`** — Community fuel top-up with EVE reward, pending official support for attributed fuel deposits (`admin_acl` access + depositor field in `FuelEvent`).
+1. **`proxy_refuel`**: Community fuel top-up with EVE reward, pending official support for attributed fuel deposits (`admin_acl` access + depositor field in `FuelEvent`).
 
-2. **`reconnect_node`** — After a NetworkNode is destroyed by PvP, `energy_source_id` becomes `None` and `bring_gate_online` stops working. Needs to receive GateCap from treasury and call `gate::update_energy_source` (requires `admin_acl`). Requires game server co-sponsorship for the `admin_acl` check.
+2. **`reconnect_node`**: After a NetworkNode is destroyed by PvP, `energy_source_id` becomes `None` and `bring_gate_online` stops working. Needs to receive GateCap from treasury and call `gate::update_energy_source` (requires `admin_acl`). Requires game server co-sponsorship for the `admin_acl` check.
 
-3. **`deregister_gate`** — Clean up treasury state (`gate_contributors`, `gate_last_reward_at`) when a gate is destroyed by PvP.
+3. **`deregister_gate`**: Clean up treasury state (`gate_contributors`, `gate_last_reward_at`) when a gate is destroyed by PvP.
 
-4. **Crowdfunded gate construction** — Multi-player material contribution.
+4. **Crowdfunded gate construction**: Multi-player material contribution.
 
-5. **Community governance** — Replace AdminCap with vote weight proportional to SRP_Share count.
+5. **Community governance**: Replace `AdminCap` with vote weight proportional to `SRP_Share` count.
 
-6. **Dynamic fee calculation** — Based on network utilisation.
+6. **Dynamic fee calculation**: Based on network utilisation.
 
 ## Key Objects
 

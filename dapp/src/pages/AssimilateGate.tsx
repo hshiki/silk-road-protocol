@@ -12,7 +12,7 @@ import { suiClient } from '../lib/rpcClient';
 export default function AssimilateGate({ isAssimilated }: { isAssimilated?: boolean }) {
   const isConnected = !!useCurrentAccount();
   const { signAndExecuteTransaction } = useDAppKit();
-  const { gateId, gateCapId } = useSmartGate();
+  const { gateId, gateCapId, linkedGateId } = useSmartGate();
 
   const [status,      setStatus]      = useState<{ type: 'ok'|'err'|'info'; msg: string } | null>(null);
   const [loading,     setLoading]     = useState(false);
@@ -22,6 +22,7 @@ export default function AssimilateGate({ isAssimilated }: { isAssimilated?: bool
     if (!isConnected) { setStatus({ type: 'err', msg: 'Wallet not connected.' }); return; }
     if (!gateId)      { setStatus({ type: 'err', msg: 'Gate ID not detected. Open this dapp from the game client.' }); return; }
     if (!gateCapId)   { setStatus({ type: 'err', msg: 'GateCap not found in your character for this gate.' }); return; }
+    if (!linkedGateId) { setStatus({ type: 'err', msg: 'Gate is not linked to a destination. Link both ends before submitting.' }); return; }
     setShowConfirm(true);
   }
 

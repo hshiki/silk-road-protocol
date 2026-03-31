@@ -5,6 +5,7 @@ import { Transaction } from '@mysten/sui/transactions';
 import { suiClient } from '../lib/rpcClient';
 import {
   SILK_ROAD_PACKAGE_ID,
+  SILK_ROAD_ORIGINAL_ID,
   FOUNDATION_TREASURY_ID,
   CLOCK_ID,
   EVE_COIN_TYPE,
@@ -52,7 +53,7 @@ export default function BuyTransitPermit() {
     if (!gateId) { setIsGateInFoundation(null); return; }
     try {
       const res = await suiClient.queryEvents({
-        query: { MoveEventType: `${SILK_ROAD_PACKAGE_ID}::silk_road::GateAssimilatedEvent` },
+        query: { MoveEventType: `${SILK_ROAD_ORIGINAL_ID}::silk_road::GateAssimilatedEvent` },
         limit: 50,
       });
       const assimilatedIds: string[] = ((res as any)?.data ?? [])

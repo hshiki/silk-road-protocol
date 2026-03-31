@@ -1,0 +1,18 @@
+# Build artifacts
+contract/build/
+dapp/dist/
+
+# Dependencies
+node_modules/
+dapp/node_modules/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code local config
+.claude/
+
+# Internal docs (local reference only)
+CLAUDE.md
+silk_road_design.md

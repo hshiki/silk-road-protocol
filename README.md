@@ -6,17 +6,17 @@
 
 Silk Road Protocol (SRP) is a decentralised gate network protocol for [EVE Frontier](https://evefrontier.com). Built for 2026 EVE Frontier Hackathon, deployed on **Sui** (testnet_utopia).
 
-<img src="assets/srp_dashboard.png" width="600px" alt="SRP Gate">
+<img src="assets/srp_dashboard.png" width="600px" alt="SRP dApp Dashboard">
 
 Players contribute Smart Gates to a shared `FoundationTreasury`. In return they receive
 `SRP_Share` tokens and ongoing uptime rewards. All transit revenue is split between
 shareholders (dividends) and the uptime reward pool.
 
-<img src="assets/buy_permit.png" width="600px" alt="SRP Gate">
+<img src="assets/buy_permit.png" width="600px" alt="Buy Permit">
 
 ## Gate Contributor Model
 
-<img src="assets/submit_gate.png" width="600px" alt="SRP Gate">
+<img src="assets/submit_gate.png" width="600px" alt="Submit Gate">
 
 **Why GateCap is locked permanently in the treasury:**
 - Prevents contributors from selling the gate (gaming share issuance).
@@ -74,7 +74,7 @@ graph TD
 
 ## Dividend Algorithm (F1 / MasterChef)
 
-<img src="assets/claim_dividend.png" width="600px" alt="SRP Gate">
+<img src="assets/claim_dividend.png" width="600px" alt="Claim Dividend">
 
 The protocol utilizes the F1 / MasterChef algorithm to achieve $O(1)$ scalability for reward distribution.
 
@@ -93,7 +93,7 @@ The protocol utilizes the F1 / MasterChef algorithm to achieve $O(1)$ scalabilit
 
 ## Uptime Reward Model
 
-<img src="assets/uptime_reward.png" width="600px" alt="SRP Gate">
+<img src="assets/uptime_reward.png" width="600px" alt="Uptime Reward">
 
 - Reward accrues at `uptime_reward_per_ms` per millisecond while **both** the gate and its NetworkNode are online.
 - Liveness is verified on-chain via `gate::is_online` and `network_node::is_network_node_online`.
@@ -103,7 +103,7 @@ The protocol utilizes the F1 / MasterChef algorithm to achieve $O(1)$ scalabilit
 
 ## Revenue Routing (`split_and_pool`)
 
-<img src="assets/treasury.png" width="600px" alt="SRP Gate">
+<img src="assets/treasury.png" width="600px" alt="SRP Foundation Treasury">
 
 ```math
 \mathrm{uptime\_cut} = \mathrm{toll} \times (1 − \frac{\mathrm{div\_split\_bps}}{10000})  → \mathrm{uptime\_reward\_pool}

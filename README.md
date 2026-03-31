@@ -1,6 +1,8 @@
+![License](https://img.shields.io/github/license/hshiki/silk-road-protocol?color=blue)
+
 # Silk Road Protocol
 
-A decentralised gate network protocol for the [EVE Frontier](https://evefrontier.com), deployed on **Sui** (testnet_utopia).
+A decentralised gate network protocol for [EVE Frontier](https://evefrontier.com), deployed on **Sui** (testnet_utopia).
 
 Players contribute Smart Gates to a shared foundation treasury, earn **SRP_Share** tokens, collect uptime rewards, and receive dividends from transit revenue.
 
@@ -35,7 +37,7 @@ dapp/              React/Vite frontend dApp
 
 | | |
 |---|---|
-| Package | `0x5e9b4582d440403ad7a6de9ac1ffad9d155ef926d371602537cd163c27cb6f3c` |
+| Package | `0x8aefac157dd2b35b05ceb9c9fa67815a34af9c058bc3ae736943ab73a7101d98` |
 | FoundationTreasury | `0x37dc73e19be7da77ed7c8503d4b75107249bae29da55f100571598f4b48b6166` |
 | Chain | Sui testnet (`4c78adac`) |
 

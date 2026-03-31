@@ -59,6 +59,7 @@ module silk_road::silk_road {
     const ENodeOffline:         u64 = 8;
     const EGateNoEnergySource:  u64 = 9;
     const EInvalidBulkQuantity: u64 = 10;
+    const EGateNotLinked:       u64 = 11;
 
     // =========================================================================
     // Structs
@@ -196,6 +197,7 @@ module silk_road::silk_road {
         // energy_source_id is the on-chain ground truth for the powering node.
         let energy_source_opt = gate::energy_source_id(gate_obj);
         assert!(option::is_some(energy_source_opt), EGateNoEnergySource);
+        assert!(option::is_some(&gate::linked_gate_id(gate_obj)), EGateNotLinked);
         let node_id = *option::borrow(energy_source_opt);
 
         // Register SilkRoadAuth and immediately freeze the extension config.
@@ -245,6 +247,7 @@ module silk_road::silk_road {
         let gate_id = gate::id(gate_obj);
         let energy_source_opt = gate::energy_source_id(gate_obj);
         assert!(option::is_some(energy_source_opt), EGateNoEnergySource);
+        assert!(option::is_some(&gate::linked_gate_id(gate_obj)), EGateNotLinked);
         let node_id = *option::borrow(energy_source_opt);
 
         // Permanently bind Silk Road extension.

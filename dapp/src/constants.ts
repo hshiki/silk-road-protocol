@@ -4,7 +4,7 @@
 // ============================================================
 
 export const SILK_ROAD_PACKAGE_ID =
-  '0x5e9b4582d440403ad7a6de9ac1ffad9d155ef926d371602537cd163c27cb6f3c';
+  '0x8aefac157dd2b35b05ceb9c9fa67815a34af9c058bc3ae736943ab73a7101d98';
 
 // Original (v1) package ID — Sui uses this for struct type indexing even after upgrades
 export const SILK_ROAD_ORIGINAL_ID =

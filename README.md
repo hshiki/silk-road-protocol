@@ -78,12 +78,13 @@ graph TD
 
 The protocol utilizes the F1 / MasterChef algorithm to achieve $O(1)$ scalability for reward distribution.
 
-$$
-\mathrm{global\_reward\_per\_share} \mathrel{+}= \frac{\mathrm{div\_cut} \times \mathrm{PRECISION}}{\mathrm{total\_shares\_issued}}
-$$
-$$
+```math
+\mathit{global\text{\_}reward\text{\_}per\text{\_}share} += \frac{\mathit{div\text{\_}cut} \times \mathit{PRECISION}}{\mathit{total\text{\_}shares\text{\_}issued}}
+```
+```math
 \mathrm{claimable\_dividend} = \frac{\mathrm{shares} \times (\mathrm{global\_reward\_per\_share} - \mathrm{reward\_debt})}{\mathrm{PRECISION}}
-$$
+```
+
 
 - `PRECISION` = 1_000_000_000
 - `reward_debt` is set at mint time so new contributors don't claim pre-existing dividends.
@@ -104,12 +105,12 @@ $$
 
 <img src="assets/treasury.png" width="600px" alt="SRP Gate">
 
-$$
+```math
 \mathrm{uptime\_cut} = \mathrm{toll} \times (1 − \frac{\mathrm{div\_split\_bps}}{10000})  → \mathrm{uptime\_reward\_pool}
-$$
-$$
+```
+```math
 \mathrm{div\_cut} = \mathrm{toll} − \mathrm{uptime\_cut} → \mathrm{dividend\_pool}
-$$
+```
 
 ```mermaid
 graph TD

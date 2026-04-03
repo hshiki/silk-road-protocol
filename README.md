@@ -1,5 +1,3 @@
-![License](https://img.shields.io/github/license/hshiki/silk-road-protocol?color=blue)
-
 # Silk Road Protocol
 
 <img src="assets/srp_gate.png" width="600px" alt="SRP Gate">
@@ -37,7 +35,7 @@ The treasury address is `object::id_address(treasury)`, readable from any Sui ex
 graph TD
   %% Define Nodes (geometric shapes, technical terms)
   %% Actors: Rounded Rectangle
-  Player_Initial([Gate Owner <br/> holds OwnerCap Gate])
+  Player_Initial([Gate Owner <br/> holds OwnerCap&lt;Gate&gt;])
   Player_Final([Share Holder <br/> holds SRP_Share])
 
   %% Logic/Function: Hexagon
